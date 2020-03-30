@@ -1,5 +1,0 @@
-#Redirect to www location with subdirectory
-RewriteEngine on
-RewriteBase /archboot
-RewriteCond %{HTTP_HOST} archboot.org [NC]
-RewriteRule ^(.*)$ tiny.cc/archboot [R=301,NC]
