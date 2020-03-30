@@ -1,4 +1,5 @@
-*
+#*
+_test
 !_layouts/*.html
 !assets/css/*.*css
 !assets/images/*.png
