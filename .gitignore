@@ -1,6 +1,5 @@
-#*
-_test
-!_layouts/*.html
+*
+!_layouts/default.html
 !assets/css/*.*css
 !assets/images/*.png
 !wiki/*.png
