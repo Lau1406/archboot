@@ -1,8 +1,8 @@
 *
-!_layouts/default.html
-!assets/css/*.*css
-!assets/images/*.png
-!wiki/*.png
-!_config.yml
-!CNAME
-!README.md
+\!_layouts/default.html
+\!assets/css/*.*css
+\!assets/images/*.png
+\!wiki/*.png
+\!_config.yml
+\!CNAME
+\!README.md
