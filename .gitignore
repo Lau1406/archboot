@@ -1,8 +1,8 @@
 *
-!_layouts/*
-!assets/css/*
-!assets/images/*
-!wiki/*
+!_layouts/*.html
+!assets/css/*.*css
+!assets/images/*.png
+!wiki/*.png
 !_config.yml
 !CNAME
 !README.md
