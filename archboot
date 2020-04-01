@@ -103,8 +103,8 @@ _cleanup() {
     for SOURCE in *; do
         if [[ ${SOURCE} =~ ^(base|bootloader|desktop|display|\
 firmware|mirrorlist|mounting|partition|user|vga|desktop_apps|\
-display_apps|system_apps|vga_apps|00-keyboard|language|timezone|\
-xprofile|background.png|Grub2-themes|archboot*|*.log)$ ]]; then
+display_apps|system_apps|vga_apps|00-keyboard|language|\
+timezone|xprofile|background.png|Grub2-themes)$ ]]; then
             rm -rf ${SOURCE}
         fi
     done
