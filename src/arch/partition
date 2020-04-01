@@ -144,16 +144,16 @@ _default_partitioning_scheme() {
         partprobe ${DRIVE} && sleep 2s
 
         # Format partitions
-        _info "Formatting ${PART_NAME} partition (${SIZES[${INDEX}]})"
+        _info "Formating ${PART_NAME} partition (${SIZES[${INDEX}]})"
         if [[ ${PART} == "BOOT_PARTITION" ]]; then
             #yes | _check mkfs.${BOOT_FILESYSTEM} ${DRIVE}${ORDER[${INDEX}]}
-            echo "formatting ${PART}"
+            echo "formating ${PART}"
         elif [[ ${PART} == "SWAP_PARTITION" ]]; then
             #yes | _check mkswap ${DRIVE}${ORDER[${INDEX}]}
-            echo "formatting ${PART}"
+            echo "formating ${PART}"
         else
             #yes | _check mkfs.ext4 ${DRIVE}${ORDER[${INDEX}]}
-            echo "formatting ${PART}"
+            echo "formating ${PART}"
         fi
 
         # Return partitions
