@@ -108,6 +108,7 @@ timezone|xprofile|background.png|Grub2-themes)$ ]]; then
             rm -rf ${SOURCE}
         fi
     done
+    rm archboot* ./*.log > /dev/null 2>&1
     if mount | grep /mnt > /dev/null; then
         umount -R /mnt
     fi
