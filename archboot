@@ -78,6 +78,10 @@ _logs() {
     INPUTS_LOG="${USER_NAME}_${DATETIME}.log"
     _archboot_banner > ${INSTALL_LOG}
     _archboot_banner > ${INPUTS_LOG}
+    VARS=$(set -o posix ; set)
+    SCRIPT="${APPNAME}-${BRANCH}"
+    SCRIPT=${SCRIPT//-master/}
+    source SCRIPT
 }
 
 # Set system clock
@@ -320,7 +324,8 @@ _configure_desktop_environment) 2>&1 | tee -a ${INSTALL_LOG}
 
         # Get user inputs logs
         _info "Adding user inputs to logs"
-        printenv | less >> ${INPUTS_LOG}
+        SCRIPT_VARS=$(grep -vFe "$VARS" <<<"$(set -o posix ; set)" | grep -v ^VARS=)
+        echo ${SCRIPT_VARS} >> ${INPUTS_LOG}
 
         # Move logs to system
         _info "Moving logs to system"
