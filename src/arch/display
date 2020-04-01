@@ -22,7 +22,7 @@ _install_display_manager() {
     _info "Installing ${DISPLAY_MAN,,} display manager"
     #_chroot "pacman --noconfirm -S ${!DISPLAY_MAN}"
     #_chroot "systemctl enable ${DISPLAY_MAN,,}"
-    echo ${DISPLAY_MAN}
+    echo ${!DISPLAY_MAN}
 
     # Start command of each Desktop Environment
     case ${DESKTOP} in
@@ -32,6 +32,9 @@ _install_display_manager() {
         BUDGIE) SESSION="/usr/bin/budgie-desktop";;
         DEEPIN) SESSION="/usr/bin/startdde";;
     esac
+
+    # Configure display manager
+    _info "Configuring ${DISPLAY_MAN} display manager"
 
     # GDM
     if [[ ${DISPLAY_MAN} == "GDM" ]]; then

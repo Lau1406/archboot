@@ -71,11 +71,13 @@ _install_vga_driver() {
     # VGA Controller
     _info "Installing 3D VGA Driver"
     #_chroot "pacman --noconfirm -S ${!VGA_DRIVER}"
+    echo ${!VGA_DRIVER}
 
     # OpenGL & Hardware Video Acceleration
     if [[ ${VGA_DRIVER} != "DEFAULT_DRIVER" ]]; then
         _info "Installing OpenGL & Hardware Video Acceleration"
         #_chroot "pacman --noconfirm -S ${!OPENGL} ${!HARDVIDEO}"
+        echo ${!OPENGL} ${!HARDVIDEO}
     fi
 }
 
