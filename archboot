@@ -79,9 +79,7 @@ _logs() {
     _archboot_banner > ${INSTALL_LOG}
     _archboot_banner > ${INPUTS_LOG}
     VARS=$(set -o posix ; set)
-    SCRIPT="${APPNAME}-${BRANCH}"
-    SCRIPT=${SCRIPT//-master/}
-    source ./SCRIPT
+    source archboot-debug
 }
 
 # Set system clock
