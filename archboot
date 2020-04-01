@@ -345,8 +345,15 @@ case ${CONFIRM} in
         ( set -o posix ; set ) | less
         ;;
     *)
+        unset CONFIRM
+        _confirm "Do you wish to show installation logs?"
+        case ${CONFIRM} in
+            y|Y|yes|Yes|YES)
+                echo "logs ok"
+                #cat /mnt/var/log/${APPNAME}/${APPNAME}*.log
+                ;;
+        esac
         _cleanup
-        ;;
 esac
 unset CONFIRM
 
