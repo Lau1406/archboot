@@ -54,8 +54,8 @@ _default_partitioning_scheme() {
     _confirm "Setting ${PART_TABLE} partition table on ${DRIVE}"
     case ${CONFIRM} in
         y|Y|yes|Yes|YES)
-            wipefs -fa ${DRIVE}
-            printf ${PART_CODE}"\nw" | fdisk ${DRIVE}
+            #wipefs -fa ${DRIVE}
+            #printf ${PART_CODE}"\nw" | fdisk ${DRIVE}
             partprobe ${DRIVE}
             ;;
         *)
@@ -128,13 +128,16 @@ _default_partitioning_scheme() {
         _info "Creating ${PART_NAME} partition (${SIZES[${INDEX}]})"
         if [[ ${PART} == "HOME_PARTITION" ]]; then
             if [[ ${HOME_SIZE} == "free space" ]]; then
-                printf "n\n${PART_TYPE}\n\nw" | fdisk ${DRIVE}
+                #printf "n\n${PART_TYPE}\n\nw" | fdisk ${DRIVE}
+                echo "creating ${PART} free space"
             else
-                printf "n\n\n\n+${HOME_SIZE}\nw" | fdisk ${DRIVE}
+                #printf "n\n\n\n+${HOME_SIZE}\nw" | fdisk ${DRIVE}
+                echo "creating ${PART} home"
             fi
         else
-            printf \
-"n\n${PART_TYPE}\n\n+${SIZES[${INDEX}]}\nw" | fdisk ${DRIVE}
+            #printf \
+#"n\n${PART_TYPE}\n\n+${SIZES[${INDEX}]}\nw" | fdisk ${DRIVE}
+            echo "creating ${PART}"
         fi
 
         # Inform changes to system
@@ -143,11 +146,14 @@ _default_partitioning_scheme() {
         # Format partitions
         _info "Formatting ${PART_NAME} partition (${SIZES[${INDEX}]})"
         if [[ ${PART} == "BOOT_PARTITION" ]]; then
-            yes | _check mkfs.${BOOT_FILESYSTEM} ${DRIVE}${ORDER[${INDEX}]}
+            #yes | _check mkfs.${BOOT_FILESYSTEM} ${DRIVE}${ORDER[${INDEX}]}
+            echo "formatting ${PART}"
         elif [[ ${PART} == "SWAP_PARTITION" ]]; then
-            yes | _check mkswap ${DRIVE}${ORDER[${INDEX}]}
+            #yes | _check mkswap ${DRIVE}${ORDER[${INDEX}]}
+            echo "formatting ${PART}"
         else
-            yes | _check mkfs.ext4 ${DRIVE}${ORDER[${INDEX}]}
+            #yes | _check mkfs.ext4 ${DRIVE}${ORDER[${INDEX}]}
+            echo "formatting ${PART}"
         fi
 
         # Return partitions

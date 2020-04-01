@@ -20,8 +20,9 @@ _install_display_manager() {
 
     # Install Display Manager
     _info "Installing ${DISPLAY_MAN,,} display manager"
-    _chroot "pacman --noconfirm -S ${!DISPLAY_MAN}"
-    _chroot "systemctl enable ${DISPLAY_MAN,,}"
+    #_chroot "pacman --noconfirm -S ${!DISPLAY_MAN}"
+    #_chroot "systemctl enable ${DISPLAY_MAN,,}"
+    echo ${DISPLAY_MAN}
 
     # Start command of each Desktop Environment
     case ${DESKTOP} in
@@ -35,7 +36,7 @@ _install_display_manager() {
     # GDM
     if [[ ${DISPLAY_MAN} == "GDM" ]]; then
         wget ${URL}/conf/xprofile
-        mv xprofile /mnt/etc/xprofile
+        #mv xprofile /mnt/etc/xprofile
 
     # LIGHTDM
     elif [[ ${DISPLAY_MAN} == "LIGHTDM" ]]; then
@@ -50,7 +51,8 @@ _install_display_manager() {
         # Install Greeter
         if [[ ${DESKTOP} != "DEEPIN" ]]; then
             _info "Installing lightdm ${GREETER} greeter"
-            _chroot "pacman --noconfirm -S lightdm-${GREETER}-greeter"
+            #_chroot "pacman --noconfirm -S lightdm-${GREETER}-greeter"
+            echo "lightdm-${GREETER}-greeter"
         fi
 
         # Configure Greeter
@@ -58,29 +60,32 @@ _install_display_manager() {
         SESSION="greeter-session=lightdm-${GREETER}-greeter"
         NUMON="greeter-setup-script=/usr/bin/numlockx on"
         NUMOFF="#greeter-setup-script="
-        sed -i -e \
-"s|${DEFAULT_SESSION}|${SESSION}|g" /mnt/etc/lightdm/lightdm.conf
-        sed -i -e "s|${NUMOFF}|${NUMON}|g" /mnt/etc/lightdm/lightdm.conf
+        #sed -i -e \
+#"s|${DEFAULT_SESSION}|${SESSION}|g" /mnt/etc/lightdm/lightdm.conf
+        #sed -i -e "s|${NUMOFF}|${NUMON}|g" /mnt/etc/lightdm/lightdm.conf
 
     # SDDM
     elif [[ ${DISPLAY_MAN} == "SDDM" ]]; then
-        _chroot "sddm --example-config > /etc/sddm.conf"
-        sed -i -e "s|Session=|Session=${SESSION}|g" /mnt/etc/sddm.conf
-        sed -i -e "s/Numlock=none/Numlock=on/g" /mnt/etc/sddm.conf
+        echo ${DISPLAY_MAN}
+        #_chroot "sddm --example-config > /etc/sddm.conf"
+        #sed -i -e "s|Session=|Session=${SESSION}|g" /mnt/etc/sddm.conf
+        #sed -i -e "s/Numlock=none/Numlock=on/g" /mnt/etc/sddm.conf
 
     # LXDM
     elif [[ ${DISPLAY_MAN} == "LXDM" ]]; then
-        DEFAULT_SESSION="# session=/usr/bin/startlxde"
-        sed -i -e \
-"s|${DEFAULT_SESSION}|session=${SESSION}|g" /mnt/etc/lxdm/lxdm.conf
-        sed -i -e "s/# numlock=0/numlock=1/g" /mnt/etc/lxdm/lxdm.conf
-        sed -i -e "s/white=/white=${USER_NAME}/g" /mnt/etc/lxdm/lxdm.conf
-        sed -i -e "s/black=/black=root/g" /mnt/etc/lxdm/lxdm.conf
+        echo ${DISPLAY_MAN}
+        #DEFAULT_SESSION="# session=/usr/bin/startlxde"
+        #sed -i -e \
+#"s|${DEFAULT_SESSION}|session=${SESSION}|g" /mnt/etc/lxdm/lxdm.conf
+        #sed -i -e "s/# numlock=0/numlock=1/g" /mnt/etc/lxdm/lxdm.conf
+        #sed -i -e "s/white=/white=${USER_NAME}/g" /mnt/etc/lxdm/lxdm.conf
+        #sed -i -e "s/black=/black=root/g" /mnt/etc/lxdm/lxdm.conf
 
     # XDM
     elif [[ ${DISPLAY_MAN} == "XDM" ]]; then
-        echo ${SESSION} > /mnt/home/${USER_NAME}/.xsession
-        chmod 700 /mnt/home/${USER_NAME}/.xsession
+        echo ${DISPLAY_MAN}
+        #echo ${SESSION} > /mnt/home/${USER_NAME}/.xsession
+        #chmod 700 /mnt/home/${USER_NAME}/.xsession
     fi
 }
 
