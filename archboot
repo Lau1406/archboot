@@ -81,7 +81,7 @@ _logs() {
     VARS=$(set -o posix ; set)
     SCRIPT="${APPNAME}-${BRANCH}"
     SCRIPT=${SCRIPT//-master/}
-    source SCRIPT
+    source ./SCRIPT
 }
 
 # Set system clock
