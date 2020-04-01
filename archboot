@@ -352,7 +352,7 @@ case ${CONFIRM} in
     y|Y|yes|Yes|YES)
         #_cleanup
         #_reboot
-        ( set -o posix ; set ) | less >> ${INPUTS_LOG}
+        echo "ok"
         ;;
     *)
         echo "exit ok"
