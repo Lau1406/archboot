@@ -70,6 +70,7 @@ _chroot() {
 EOF
 }
 
+# Set logfile
 _logs() {
     _info "Setting ${APPNAME} logs"
     DATETIME=$(date '+%d-%m-%Y_%Hh%M')
@@ -103,7 +104,7 @@ _cleanup() {
     for SOURCE in *; do
         if [[ ${SOURCE} =~ ^(base|bootloader|desktop|display|\
 firmware|mirrorlist|mounting|partition|user|vga|desktop_apps|\
-display_apps|system_apps|vga_apps|00-keyboard|language|\
+display_apps|system_apps|vga_apps|00-keyboard.conf|language|\
 timezone|xprofile|background.png|Grub2-themes)$ ]]; then
             rm -rf ${SOURCE}
         fi
@@ -299,22 +300,22 @@ case ${CONFIRM} in
     y|Y|yes|Yes|YES)
 
         # Install Arch Linux base system
-        (_install_base; _install_bootloader) 2>&1 | tee -a ${LOG}
+        (_install_base; _install_bootloader) 2>&1 | tee -a ${INSTALL_LOG}
 
         # Install VGA Driver
         if [[ -n ${VGA_DRIVER+x} ]]; then
-            (_install_vga_driver) 2>&1 | tee -a ${LOG}
+            (_install_vga_driver) 2>&1 | tee -a ${INSTALL_LOG}
         fi
 
         # Install desktop environment & display manager
         if [[ -n ${DESKTOP+x} ]]; then
             (_install_desktop_environment; _install_display_manager; \
-_configure_desktop_environment) 2>&1 | tee -a ${LOG}
+_configure_desktop_environment) 2>&1 | tee -a ${INSTALL_LOG}
         fi
 
         # User rights
         if [[ -n ${POWER+x} ]]; then
-            (_enable_user_rights) 2>&1 | tee -a ${LOG}
+            (_enable_user_rights) 2>&1 | tee -a ${INSTALL_LOG}
         fi
 
         # Get user inputs logs
@@ -352,15 +353,9 @@ case ${CONFIRM} in
         ( set -o posix ; set ) | less
         ;;
     *)
-        unset CONFIRM
-        _confirm "Do you wish to show installation logs?"
-        case ${CONFIRM} in
-            y|Y|yes|Yes|YES)
-                echo "logs ok"
-                #cat /mnt/var/log/${APPNAME}/${APPNAME}*.log
-                ;;
-        esac
+        echo "exit ok"
         _cleanup
+        ;;
 esac
 unset CONFIRM
 _note "${APPNAME} ${VERSION} by ${AUTHOR} under ${LICENSE}"
