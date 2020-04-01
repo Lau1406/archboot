@@ -54,6 +54,7 @@ _default_partitioning_scheme() {
     _confirm "Setting ${PART_TABLE} partition table on ${DRIVE}"
     case ${CONFIRM} in
         y|Y|yes|Yes|YES)
+            echo "format drive ok!"
             #wipefs -fa ${DRIVE}
             #printf ${PART_CODE}"\nw" | fdisk ${DRIVE}
             partprobe ${DRIVE}
