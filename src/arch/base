@@ -43,7 +43,6 @@ _install_base() {
     # root passwd
     _info "Setting root password"
     #_chroot "echo 'root:${ROOTPASSWD}' | chpasswd"
-    export A="encrypted"; export ROOTPASSWD="encrypted"
 
     # network
     _info "Installing network manager"
@@ -63,7 +62,6 @@ _install_base() {
     _info "Setting user ${USER_NAME}"
     #_chroot "useradd -g users -m -s /bin/bash ${USER_NAME}"
     #_chroot "echo '${USER_NAME}:${USERPASSWD}' | chpasswd"
-    export B="encrypted"; export USERPASSWD="encrypted"
 }
 
 # archboot by grm34 under Apache License 2.0
