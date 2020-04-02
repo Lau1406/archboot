@@ -1,6 +1,7 @@
 #!/bin/bash
 #printenv > ./vars.before
-comm -23 <(set | grep '^[^=[:space:]]\+=' | sort) <(env | sort) > ./vars.before
+BEFORE=$(comm -23 <(set | grep '^[^=[:space:]]\+=' | sort) <(env | sort))
+#echo ${VARS} > ./vars.before
 
 APPNAME="archboot"
 VERSION="v2.9.2"
@@ -324,8 +325,8 @@ _configure_desktop_environment) 2>&1 | tee -a ${INSTALL_LOG}
         # Get user inputs logs
         _info "Adding user inputs to logs"
         #printenv > ./vars.after
-        comm -23 <(set | grep '^[^=[:space:]]\+=' | sort) <(env | sort) > ./vars.after
-        VARS=$(diff vars.before vars.after | grep "^>" | grep -v \
+        AFTER=$(comm -23 <(set | grep '^[^=[:space:]]\+=' | sort) <(env | sort))
+        VARS=$(diff ${BEFORE} ${AFTER} | grep "^>" | grep -v \
 "A\|B\|ROOTPASSWD\|USERPASSWD\|RED\|GREEN\|YELLOW\|BLUE\|CYAN\|NC")
         echo ${VARS} >> ${INPUTS_LOG}
         #sed -i -e "s/ > /\n/g" ${INPUTS_LOG}
