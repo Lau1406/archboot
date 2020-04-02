@@ -98,6 +98,8 @@ _get_user_variables() {
     # Linux Kernel
     _confirm "Do you wish to install a custom Linux Kernel?"
     case ${CONFIRM} in
+
+        # Custom kernel
         y|Y|yes|Yes|YES)
             until [[ ${KERNEL} =~ ^[1-4]$ ]]; do
                 _select "DEFAULT" "HARDENED" "LTS" "ZEN"
@@ -135,7 +137,6 @@ _get_user_variables() {
 
     # Display Manager
     if [[ -n ${DESKTOP+x} ]]; then
-
         _confirm \
 "Do you wish to install ${DESKTOP,,} default Display Manager?"
         case ${CONFIRM} in
