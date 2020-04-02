@@ -1,6 +1,7 @@
 *
 \!_layouts/default.html
-\!assets/css/*.*css
+\!assets/css/custom.css
+\!assets/css/style.scss
 \!assets/images/*.png
 \!wiki/*.png
 \!_config.yml
