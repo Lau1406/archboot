@@ -1,4 +1,6 @@
 #!/bin/bash
+set > ./tmp.log
+
 APPNAME="archboot"
 VERSION="v2.9.2"
 BRANCH="debug"
@@ -320,12 +322,9 @@ _configure_desktop_environment) 2>&1 | tee -a ${INSTALL_LOG}
 
         # Get user inputs logs
         _info "Adding user inputs to logs"
-        set > ./user_inputs.log
-        VARS=$(grep -v \
+        set | grep -v \
 "A\|B\|ROOTPASSWD\|USERPASSWD\|RED\|GREEN\|YELLOW\|BLUE\|CYAN\|NC" \
-./user_inputs.log)
-        echo ${VARS} >> ${INPUTS_LOG}
-        sed -i -e "s/_='Adding user inputs to logs'//g" ${INPUTS_LOG}
+>> ${INPUTS_LOG}
 
         # Move logs to system
         _info "Moving logs to system"
