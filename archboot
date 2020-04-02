@@ -107,7 +107,7 @@ _cleanup() {
         if [[ ${SOURCE} =~ ^(base|bootloader|desktop|display|\
 firmware|mirrorlist|mounting|partition|user|vga|desktop_apps|\
 display_apps|system_apps|vga_apps|00-keyboard.conf|language|\
-timezone|xprofile|background.png|Grub2-themes)+$ ]]; then
+timezone|xprofile|background.png|Grub2-themes)$ ]]; then
             rm -rf ${SOURCE}
         fi
     done
@@ -155,7 +155,7 @@ _select() {
 # Ask confirmation (Yes/No)
 _confirm() {
     COUNT=$((${#1} + 6))
-    until [[ ${CONFIRM} =~ ^(y|n|Y|N|yes|no|Yes|No|YES|NO)+$ ]]; do
+    until [[ ${CONFIRM} =~ ^(y|n|Y|N|yes|no|Yes|No|YES|NO)$ ]]; do
         echo -ne "${YELLOW}\n==> ${GREEN}${1} ${RED}[y/n]${YELLOW}\n==> "
         _end
         read -r CONFIRM
