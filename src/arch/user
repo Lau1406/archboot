@@ -99,7 +99,7 @@ _get_user_variables() {
     _confirm "Do you wish to install a custom Linux Kernel?"
     case ${CONFIRM} in
         y|Y|yes|Yes|YES)
-            until [[ ${KERNEL} =~ ^[1-4]?$ ]]; do
+            until [[ ${KERNEL} =~ ^[1-4]$ ]]; do
                 _select "DEFAULT" "HARDENED" "LTS" "ZEN"
                 read -r KERNEL
             done
@@ -142,7 +142,7 @@ _get_user_variables() {
 
             # Custom display manager
             n|N|no|No|NO)
-                until [[ ${DISPLAY_MAN} =~ ^[1-5]?$ ]]; do
+                until [[ ${DISPLAY_MAN} =~ ^[1-5]$ ]]; do
                     _select "GDM" "LIGHTDM" "SDDM" "LXDM" "XDM"
                     read -r DISPLAY_MAN
                 done
