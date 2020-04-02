@@ -359,8 +359,8 @@ case ${CONFIRM} in
         echo "ok"
         ;;
     *)
-        echo "exit ok"
         _cleanup
+        echo "exit ok"
         ;;
 esac
 unset CONFIRM

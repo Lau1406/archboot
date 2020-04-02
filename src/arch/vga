@@ -21,6 +21,8 @@ _get_vga_driver() {
         _select "Do you wish to install proprietary drivers?"
         case ${CONFIRM} in
             y|Y|yes|Yes|YES)
+
+                # Proprietary drivers
                 case ${KERNEL} in
                     LTS_KERNEL) export VGA_DRIVER="NVIDIA_LTS";;
                     HARDENED_KERNEL|ZEN_KERNEL)
@@ -30,6 +32,7 @@ _get_vga_driver() {
                 export OPENGL="OPENGL_NVIDIA"
                 export HARDVIDEO="HARVIDEO_NVIDIA"
                 ;;
+            # Opensource drivers
             *)
                 export VGA_DRIVER="NOUVEAU_DRIVER"
                 export OPENGL="OPENGL_NOUVEAU"

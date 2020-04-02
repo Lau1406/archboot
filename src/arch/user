@@ -2,11 +2,12 @@
 
 #                           USER MANAGEMENT
 # ============================================================================
-# Here we ask all required variables to the user and store them.
+# Here we ask all required variables to the user and we store them.
 #
 #    Required variables:
 #
 #      LANGUAGE.......: full list is available in the wiki
+#      KEYMAP.........: keymap language code for keyboard
 #      HOST_NAME......: computer name such as <my-favorite-computer>
 #      ROOTPASSWD.....: at least 6 chars long with 1 letter & 1 digit
 #      USER_NAME......: such as <bobby_is_not_a_loser>

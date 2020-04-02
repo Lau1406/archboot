@@ -54,10 +54,10 @@ _default_partitioning_scheme() {
     _confirm "Format ${DRIVE} and create ${PART_TABLE} partition table?"
     case ${CONFIRM} in
         y|Y|yes|Yes|YES)
-            echo "format drive ok!"
             #wipefs -fa ${DRIVE}
             #printf ${PART_CODE}"\nw" | fdisk ${DRIVE}
             partprobe ${DRIVE}
+            echo "format drive ok!"
             ;;
         *)
             _error "installation aborted by user!"
@@ -65,16 +65,16 @@ _default_partitioning_scheme() {
     esac
     unset CONFIRM
 
-    # Set required partitions sizes
+    # Create list to get partitions size
     PART_SIZES=(BOOT_SIZE SWAP_SIZE SYSTEM_SIZE HOME_SIZE)
     SIZES=("512M" "2G" "25G" "100G")
     INDEX=0
 
-    # Get partitions sizes
+    # Get partitions size
     for PART in "${PART_SIZES[@]}"; do
         PART_NAME=${PART//_SIZE/}
 
-        # Free space for HOME?
+        # HOME - UEFI Firmware
         if [[ ${FIRMWARE} == "UEFI" && ${PART} == "HOME_SIZE" ]]; then
             _confirm "Do you wish to use free space for home?"
             case ${CONFIRM} in
@@ -84,12 +84,14 @@ _default_partitioning_scheme() {
                     ;;
             esac
             unset CONFIRM
+
+        # HOME - BIOS Firmware
         elif [[ ${FIRMWARE} == "BIOS" && ${PART} == "HOME_SIZE" ]]; then
             FREE_SPACE="True"
             PARTITION_SIZE="free space"
         fi
 
-        # Ask partitions sizes
+        # Ask partitions size
         if [[ ! ${FREE_SPACE} ]]; then
             _note "partition size {M,G,T,P} (e.g., ${SIZES[${INDEX}]})"
             _prompt "Enter ${PART_NAME} partition size:"
@@ -104,7 +106,7 @@ _default_partitioning_scheme() {
             done
         fi
 
-        # Return partitions sizes
+        # Return partitions size
         export ${PART}="${PARTITION_SIZE}"
         INDEX=${INDEX}+1
     done
@@ -116,7 +118,7 @@ _default_partitioning_scheme() {
         ORDER=(1 2 3 4)
     fi
 
-    # Set required partitions and sizes
+    # Create list to assign size to partitions
     PARTITION=(BOOT_PARTITION SWAP_PARTITION SYSTEM_PARTITION HOME_PARTITION)
     SIZES=("${BOOT_SIZE}" "${SWAP_SIZE}" "${SYSTEM_SIZE}" "${HOME_SIZE}")
     INDEX=0
@@ -185,7 +187,7 @@ _custom_partitioning_scheme() {
     # Get partitions drive ID
     _info "Listing drives and partitions"
     for PART in "${PARTITION[@]}"; do
-        echo && fdisk -l
+        fdisk -l
         PART_NAME=${PART//_PARTITION/}
 
         # Get drive ID

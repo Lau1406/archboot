@@ -69,26 +69,26 @@ _install_display_manager() {
 
     # SDDM
     elif [[ ${DISPLAY_MAN} == "SDDM" ]]; then
-        echo ${DISPLAY_MAN}
         #_chroot "sddm --example-config > /etc/sddm.conf"
         #sed -i -e "s|Session=|Session=${SESSION}|g" /mnt/etc/sddm.conf
         #sed -i -e "s/Numlock=none/Numlock=on/g" /mnt/etc/sddm.conf
+        echo ${DISPLAY_MAN}
 
     # LXDM
     elif [[ ${DISPLAY_MAN} == "LXDM" ]]; then
-        echo ${DISPLAY_MAN}
         #DEFAULT_SESSION="# session=/usr/bin/startlxde"
         #sed -i -e \
 #"s|${DEFAULT_SESSION}|session=${SESSION}|g" /mnt/etc/lxdm/lxdm.conf
         #sed -i -e "s/# numlock=0/numlock=1/g" /mnt/etc/lxdm/lxdm.conf
         #sed -i -e "s/white=/white=${USER_NAME}/g" /mnt/etc/lxdm/lxdm.conf
         #sed -i -e "s/black=/black=root/g" /mnt/etc/lxdm/lxdm.conf
+        echo ${DISPLAY_MAN}
 
     # XDM
     elif [[ ${DISPLAY_MAN} == "XDM" ]]; then
-        echo ${DISPLAY_MAN}
         #echo ${SESSION} > /mnt/home/${USER_NAME}/.xsession
         #chmod 700 /mnt/home/${USER_NAME}/.xsession
+        echo ${DISPLAY_MAN}
     fi
 }
 
