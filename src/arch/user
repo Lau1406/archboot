@@ -31,6 +31,8 @@ _get_user_variables() {
         read -r LANGUAGE
     done
     export LANGUAGE
+
+    # Keymap
     KEYMAP=$(echo ${LANGUAGE} | cut -d'_' -f 1)
     export KEYMAP
 
@@ -96,6 +98,8 @@ _get_user_variables() {
     # Linux Kernel
     _confirm "Do you wish to install a custom Linux Kernel?"
     case ${CONFIRM} in
+
+        # Custom kernel
         y|Y|yes|Yes|YES)
             until [[ ${KERNEL} =~ ^([1-9]|4)$ ]]; do
                 _select "DEFAULT" "HARDENED" "LTS" "ZEN"
@@ -105,6 +109,8 @@ _get_user_variables() {
 (NONE DEFAULT_KERNEL HARDENED_KERNEL LTS_KERNEL ZEN_KERNEL)
             export KERNEL=${KERNEL_CHOICE[${KERNEL}]}
             ;;
+
+        # Default kernel
         *)
             export KERNEL="DEFAULT_KERNEL"
             ;;
@@ -132,7 +138,8 @@ _get_user_variables() {
     # Display Manager
     if [[ -n ${DESKTOP+x} ]]; then
 
-        _confirm "Do you wish to install ${DESKTOP,,} default Display Manager?"
+        _confirm \
+"Do you wish to install ${DESKTOP,,} default Display Manager?"
         case ${CONFIRM} in
 
             # Custom display manager
