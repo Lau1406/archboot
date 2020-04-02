@@ -98,8 +98,6 @@ _get_user_variables() {
     # Linux Kernel
     _confirm "Do you wish to install a custom Linux Kernel?"
     case ${CONFIRM} in
-
-        # Custom kernel
         y|Y|yes|Yes|YES)
             until [[ ${KERNEL} =~ ^[1-4]?$ ]]; do
                 _select "DEFAULT" "HARDENED" "LTS" "ZEN"
