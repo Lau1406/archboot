@@ -228,8 +228,11 @@ _info "Importing base sources"
 source ./base; source ./bootloader; source ./firmware; source ./mirrorlist
 source ./mounting; source ./partition; source ./user; source ./system_apps
 
+# Declare logs
+_logs
+
 # Get required variables
-_get_user_variables
+(_get_user_variables) 2>&1 | tee -a ${INSTALL_LOG}
 
 # Desktop Environment
 if [[ -n ${DESKTOP+x} ]]; then
@@ -253,7 +256,7 @@ if [[ -n ${DESKTOP+x} ]]; then
     _confirm "Do you wish to install VGA Driver?"
     case ${CONFIRM} in
         y|Y|yes|Yes|YES)
-            _get_vga_driver
+            (_get_vga_driver) 2>&1 | tee -a ${INSTALL_LOG}
             ;;
     esac
     unset CONFIRM
@@ -267,23 +270,23 @@ fi
 # ============================================================================
 
 # Prepare the system
-_firmware; _mirrorlist; _timezone; _clock; _logs
+(_firmware; _mirrorlist; _timezone; _clock) 2>&1 | tee -a ${INSTALL_LOG}
 
 # Partitioning
 _note "enter NO to activate custom partitioning."
 _confirm "Do you wish to install Arch Linux on a dedicated disk?"
 case ${CONFIRM} in
     y|Y|yes|Yes|YES)
-        _default_partitioning_scheme
+        (_default_partitioning_scheme) 2>&1 | tee -a ${INSTALL_LOG}
         ;;
     *)
-        _custom_partitioning_scheme
+        (_custom_partitioning_scheme) 2>&1 | tee -a ${INSTALL_LOG}
         ;;
 esac
 unset CONFIRM
 
 # Mount
-_mount_partitions
+(_mount_partitions) 2>&1 | tee -a ${INSTALL_LOG}
 _note "system is ready to rumble! Partitions mounted & swap activated."
 
 #                     ARCHBOOT_SYSTEM INSTALLATION
@@ -324,8 +327,8 @@ _configure_desktop_environment) 2>&1 | tee -a ${INSTALL_LOG}
         _info "Adding user inputs to logs"
         (set -o posix; set) > ./vars.after
         VARS=$(diff vars.before vars.after | grep "^>")
-        sed "s/ > /\n/g" ${VARS}
         echo ${VARS} | grep -v "A\|B\|ROOTPASSWD\|USERPASSWD" >> ${INPUTS_LOG}
+        sed -i -e "s/ > /\n/g" ${INPUTS_LOG}
 
         # Move logs to system
         _info "Moving logs to system"
